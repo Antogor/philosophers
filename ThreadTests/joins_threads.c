@@ -45,7 +45,7 @@ void	*func_thread(void *ptr)
 {
 	char *value;
 
-	printf("Thread: I'm working, i'll wait one sec\n");
+	printf("Thread: I'm working, i'll wait ten sec\n");
 	usleep(10000000); //func to stop the program, this will stop to program N microsec, in this case, 10 seg
 	printf("Thread: I finish\n");
 	value = "Value returned";
