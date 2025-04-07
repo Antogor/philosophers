@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agarzon- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: antogor <antogor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 13:08:33 by agarzon-          #+#    #+#             */
-/*   Updated: 2025/03/15 13:42:20 by agarzon-         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:44:18 by antogor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,23 @@
 
 int	main(int argc, char **argv)
 {
+	t_data	*data;
+	int		result;
+
+	data = NULL;
+	result = 0;
 	if (argc > 6 || argc < 5)
-	{
-		printf("Invalid number of arguments: %d\n", argc - 1);
-		return (1);
-	}
+		return philo_exception("Main: Invalid number of arguments");
+	data = set_up_data(argc, argv);
+	if (!data)
+		return philo_exception("Main: Failed creating data");
+	set_up_forks(data);
+	if (!data->forks)
+		return philo_exception("Main: Failed creating forks");	
+	set_up_philos(data);
+	if (!data->philos)
+		return philo_exception("Main: Failed creating philos");
+	result = execute(data);
+	clean_up(data);
+	return (result);
 }

@@ -3,16 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agarzon- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: antogor <antogor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 13:06:28 by agarzon-          #+#    #+#             */
-/*   Updated: 2025/03/15 13:32:15 by agarzon-         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:18:37 by antogor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atoi(const char *nptr)
+long	get_time_ms(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
+
+void	print_status(t_philo *philo, char *status)
+{
+	long	timestamp;
+
+	pthread_mutex_lock(&philo->data->print_mutex);
+	timestamp = get_time_ms() - philo->data->start_time;
+	printf("%ld %d %s\n", timestamp, philo->philo_num, status);
+	pthread_mutex_unlock(&philo->data->print_mutex);
+}
+
+int		ft_atoi(const char *nptr)
 {
 	int			l;
 	long int	numb;

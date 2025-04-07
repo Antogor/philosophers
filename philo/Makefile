@@ -2,16 +2,22 @@ NAME = philo
 
 INCLUDES = philo.h
 
-SRC = philo.c utils.c
+SRC =	philo.c\
+		utils.c\
+		set_up.c\
+		clean_up.c\
+		errors_utils.c\
+		execute.c
 
 CC = gcc
-#CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
+LIBS = -lpthread
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) -g $(CFLAGS) -o $(NAME) $(OBJ)
+	@$(CC) -o $(NAME) $(OBJ) $(CFLAGS) $(LIBS)
 
 norm:
 	@norminette *.c *.h
