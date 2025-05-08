@@ -6,7 +6,7 @@
 /*   By: antogor <antogor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 08:56:54 by antogor           #+#    #+#             */
-/*   Updated: 2025/05/08 11:36:42 by antogor          ###   ########.fr       */
+/*   Updated: 2025/05/08 16:17:05 by antogor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,7 @@ t_data	*set_up_data(int argc, char **argv)
 	data->max_eat = 0;
 	if (argc == 6)
 		data->max_eat = ft_atoi(argv[5]);
+	pthread_mutex_init(&data->stop_mutex, NULL);
+	data->stop = 0;
 	return (data);
 }

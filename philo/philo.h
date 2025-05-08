@@ -6,7 +6,7 @@
 /*   By: antogor <antogor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:15:55 by agarzon-          #+#    #+#             */
-/*   Updated: 2025/05/08 12:36:46 by antogor          ###   ########.fr       */
+/*   Updated: 2025/05/08 16:34:33 by antogor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int					philo_is_full(t_philo *philo);
 void				*monitor(void *arg);
 void				smart_sleep(long duration, t_philo *philo);
 void				party_time(t_philo	*philo);
+void				lunch_party_time(t_philo *philo);
 void				end_party_time(t_philo *philo);
 int					check_stop(t_philo *philo);
 

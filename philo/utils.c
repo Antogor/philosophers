@@ -6,7 +6,7 @@
 /*   By: antogor <antogor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 13:06:28 by agarzon-          #+#    #+#             */
-/*   Updated: 2025/05/08 12:37:02 by antogor          ###   ########.fr       */
+/*   Updated: 2025/05/08 16:28:57 by antogor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,16 @@ long	get_time_ms(void)
 
 void	print_status(t_philo *philo, char *status)
 {
-	long	timestamp;
-
+	pthread_mutex_lock(&philo->data->stop_mutex);
+	if (philo->data->stop)
+	{
+		pthread_mutex_unlock(&philo->data->stop_mutex);
+		return ;
+	}
+	pthread_mutex_unlock(&philo->data->stop_mutex);
 	pthread_mutex_lock(&philo->data->print_mutex);
-	timestamp = get_time_ms() - philo->data->start_time;
-	printf("%ld %d %s\n", timestamp, philo->philo_num, status);
+	printf("%ld %d %s\n", get_time_ms() - philo->data->start_time,
+		philo->philo_num, status);
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
@@ -75,6 +80,7 @@ int	philo_is_full(t_philo *philo)
 {
 	int	full;
 
+	full = 0;
 	if (philo->data->max_eat == 0)
 		return (0);
 	pthread_mutex_lock(&philo->meal_mutex);

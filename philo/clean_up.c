@@ -6,7 +6,7 @@
 /*   By: antogor <antogor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 11:31:11 by antogor           #+#    #+#             */
-/*   Updated: 2025/05/08 12:35:30 by antogor          ###   ########.fr       */
+/*   Updated: 2025/05/08 16:09:43 by antogor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void	clean_up(t_data *data)
 	free(data->forks);
 	clean_up_philos(data->philos);
 	pthread_mutex_destroy(&data->print_mutex);
+	pthread_mutex_destroy(&data->stop_mutex);
 	clean_up_data(data);
 }
