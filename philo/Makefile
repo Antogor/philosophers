@@ -7,7 +7,9 @@ SRC =	philo.c\
 		set_up.c\
 		clean_up.c\
 		errors_utils.c\
-		execute.c
+		execute.c\
+		monitor_utils.c\
+		execution_utils.c
 
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror
@@ -17,7 +19,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) -o $(NAME) $(OBJ) $(CFLAGS) $(LIBS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBS)
 
 norm:
 	@norminette *.c *.h

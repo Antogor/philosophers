@@ -5,30 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: antogor <antogor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 14:47:52 by antogor           #+#    #+#             */
-/*   Updated: 2025/04/07 17:51:00 by antogor          ###   ########.fr       */
+/*   Created: 2025/05/08 09:02:12 by antogor           #+#    #+#             */
+/*   Updated: 2025/05/08 12:23:38 by antogor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-int		start(t_data *data)
+
+int	start(t_data *data)
 {
-    int i;
+	int			i;
+	pthread_t	monitor_thread;
 
 	data->start_time = get_time_ms();
-    i = 0;
-    while (i < data->philo_total)
-    {
-        if (pthread_create(&data->philos[i].thread, NULL, &thread_execution, &data->philos[i]) != 0)
-			return philo_exception("Start: Failed to create philo thread");
-        i++;
-    }
+	i = 0;
+	while (i < data->philo_total)
+	{
+		if (pthread_create(&data->philos[i].thread, NULL,
+				&thread_execution, &data->philos[i]) != 0)
+			return (philo_exception("Start: Failed to create philo thread"));
+		i++;
+	}
+	if (pthread_create(&monitor_thread, NULL, monitor, data) != 0)
+		return (philo_exception("Start: Failed to create monitor thread"));
+	pthread_detach(monitor_thread);
 	return (0);
 }
 
 void	end(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->philo_total)
@@ -37,37 +43,34 @@ void	end(t_data *data)
 		i++;
 	}
 }
-int		execute(t_data *data)
-{
-	int result;
 
-    result = start(data);
+int	execute(t_data *data)
+{
+	int	result;
+
+	result = start(data);
 	if (result)
 		return (result);
 	end(data);
-    return (result);
+	return (result);
 }
+
 void	*thread_execution(void *args)
 {
-    t_philo *philo;
+	t_philo	*philo;
 
-    philo = (t_philo *)args;
-    while (1)
-    {
-        pthread_mutex_lock(philo->left_fork);
+	philo = (t_philo *)args;
+	philo->last_eat_time = get_time_ms();
+	if (philo->data->philo_total == 1)
+	{
+		pthread_mutex_lock(philo->left_fork);
 		print_status(philo, "has taken a fork");
-        pthread_mutex_lock(philo->right_fork);
-		print_status(philo, "has taken a fork");
-        print_status(philo, "is eating");
-		philo->last_eat_time = get_time_ms();
-        usleep(philo->data->time_to_eat * 1000);
-		philo->eated++;
-        pthread_mutex_unlock(philo->left_fork);
-        pthread_mutex_unlock(philo->right_fork);
-        print_status(philo, "is sleeping");
-		usleep(philo->data->time_to_sleep * 1000);
-		print_status(philo, "is thinking");
-    }
-
-    return (NULL);
+		smart_sleep(philo->data->time_to_die, philo);
+		print_status(philo, "died");
+		pthread_mutex_unlock(philo->left_fork);
+		return (NULL);
+	}
+	while (!check_stop(philo) && !philo_is_full(philo))
+		party_time(philo);
+	return (NULL);
 }
