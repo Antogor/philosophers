@@ -2,3 +2,5 @@
 .vscode
 philo/philo
 *.txt
+philosopher_Test.c
+ThreadTests/
