@@ -2,7 +2,7 @@
 
 # Lanzar con:
 	# valgrind --leak-check=full ./philo 4 800 200 200
-	# timeout 5s ./philo 100 200 100 100
+	# timeout 5s valgrind --leak-check=full ./philo 100 200 100 100
 
 # CASOS DONDE NO MUERE NADIE
 echo "🧪 Test 1: CASOS DONDE NO MUERE NADIE"
@@ -40,6 +40,6 @@ echo "🧪 Test 4: CASOS DE ERROR"
 	# Argumentos inválidos
 ./philo               # Faltan argumentos
 ./philo 4             # Faltan argumentos
-./philo 4 -800 200 200    # Valores negativos - CORREGIR - NO FALLA
-./philo 4 800 abc 200     # Argumento no numérico - CORREGIR - NO FALLA
-./philo 4 800 0 200       # Comer = 0, inválido - CORREGIR - NO FALLA
+./philo 4 -800 200 200    # Valores negativos
+./philo 4 800 abc 200     # Argumento no numérico
+./philo 4 800 0 200       # Comer = 0, inválido
