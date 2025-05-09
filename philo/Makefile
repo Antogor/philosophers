@@ -3,6 +3,7 @@ NAME = philo
 INCLUDES = philo.h
 
 SRC =	philo.c\
+		arguments_utils.c\
 		utils.c\
 		set_up.c\
 		clean_up.c\

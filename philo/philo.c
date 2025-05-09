@@ -6,7 +6,7 @@
 /*   By: antogor <antogor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 13:08:33 by agarzon-          #+#    #+#             */
-/*   Updated: 2025/05/08 12:36:16 by antogor          ###   ########.fr       */
+/*   Updated: 2025/05/09 10:38:20 by antogor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	main(int argc, char **argv)
 	result = 0;
 	if (argc > 6 || argc < 5)
 		return (philo_exception("Main: Invalid number of arguments"));
+	if (!check_arguments(argc, argv))
+		return (philo_exception("Main: Invalid arguments"));
 	data = set_up_data(argc, argv);
 	if (!data)
 		return (philo_exception("Main: Failed creating data"));

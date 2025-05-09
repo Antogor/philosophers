@@ -6,7 +6,7 @@
 /*   By: antogor <antogor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:15:55 by agarzon-          #+#    #+#             */
-/*   Updated: 2025/05/08 16:34:33 by antogor          ###   ########.fr       */
+/*   Updated: 2025/05/09 10:43:34 by antogor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void				end(t_data *data);
 
 // Utils
 int					ft_atoi(const char *nptr);
+int					ft_isalpha(int c);
 long				get_time_ms(void);
 void				print_status(t_philo *philo, char *status);
 int					philo_is_dead(t_philo *philo);
@@ -69,6 +70,7 @@ void				end_party_time(t_philo *philo);
 int					check_stop(t_philo *philo);
 
 // Set Up
+int					check_arguments(int argc, char **argv);
 t_data				*set_up_data(int argc, char **argv);
 void				set_up_philos(t_data *data);
 void				set_up_forks(t_data *data);

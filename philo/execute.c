@@ -6,7 +6,7 @@
 /*   By: antogor <antogor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 14:47:52 by antogor           #+#    #+#             */
-/*   Updated: 2025/05/08 16:19:41 by antogor          ###   ########.fr       */
+/*   Updated: 2025/05/09 10:23:00 by antogor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ void	*thread_execution(void *args)
 		print_status(philo, "has taken a fork");
 		smart_sleep(philo->data->time_to_die, philo);
 		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_lock(&philo->data->stop_mutex);
+		philo->data->stop = 1;
+		pthread_mutex_unlock(&philo->data->stop_mutex);
+		print_status(philo, "died");
 		return (NULL);
 	}
 	while (!check_stop(philo) && !philo_is_full(philo))
