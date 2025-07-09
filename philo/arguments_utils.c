@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arguments_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antogor <antogor@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agarzon- <agarzon-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 10:31:24 by antogor           #+#    #+#             */
-/*   Updated: 2025/05/09 10:43:23 by antogor          ###   ########.fr       */
+/*   Updated: 2025/07/09 19:59:06 by agarzon-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int	ft_atoi(const char *nptr)
 
 int	ft_isalpha(int c)
 {
-	if ((c >= 'A' && c <= 'Z')
-	|| (c >= 'a' && c <= 'z'))
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
 		return (1);
 	else
 		return (0);
